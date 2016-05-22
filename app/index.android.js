@@ -11,14 +11,9 @@ import {
   TextInput,
   ScrollView,
   View,
-  ReactDOM
 } from 'react-native';
 
 class MessageRow extends Component {
-
-  constructor (props) {
-    super();
-  }
 
   render () {
     return (
@@ -31,19 +26,10 @@ class MessageRow extends Component {
 
 class MessageListView extends Component {
 
-  constructor (props) {
-    super(props);
-  }
-
-  createMessageRow(message, i) {
-    return (<MessageRow message={ message}
-              key={i}/>);
-  }
-
   render () {
     return (
       <ScrollView>
-        {this.props.messages.map(this.createMessageRow)}
+        {this.props.messages.map((message, i) => <MessageRow message={message} key={i}/>)}
       </ScrollView>
    );
  }
