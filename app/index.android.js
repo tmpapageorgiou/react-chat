@@ -11,6 +11,7 @@ import {
   TextInput,
   ScrollView,
   View,
+  WebSocket
 } from 'react-native';
 
 class MessageRow extends Component {
@@ -39,11 +40,16 @@ class MainView extends Component {
 
   constructor (props) {
     super(props);
-    this.state={messages: []};
+    this.state = {messages: []};
+    this.socket = new WebSocket('ws://localhost:8888/ws/test');
+    this.socket.onmessage((msg) =>{
+      this.state.messages.push(msg);
+      this.forceUpdate();
+    });
   }
 
   onSubmiting(text) {
-    this.state.messages.push(text);
+    this.socket.send(text);
     this.setState({messages: this.state.messages});
   }
 
